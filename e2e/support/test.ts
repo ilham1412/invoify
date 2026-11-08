@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { test as base, expect } from "@playwright/test";
 import { BahasaPage } from "../pages/bahasa.page";
 import { AlurPenuhPage } from "../pages/alur-penuh.page";
@@ -35,6 +37,7 @@ export type TestFixtures = {
     penyimpanan: PenyimpananPage;
     beranda: BerandaPage;
     problems: string[];
+    coverage: void;
 };
 
 export const test = base.extend<TestFixtures>({
@@ -62,6 +65,67 @@ export const test = base.extend<TestFixtures>({
         collectProblems(page, problems);
         await register(problems);
     },
+    /*
+     * Opt-in V8 coverage recorder for the TIA experiment. With COVERAGE unset
+     * this fixture is a no-op, so normal Playwright runs keep their original
+     * timing and behaviour.
+     */
+    coverage: [
+        async ({ page }, use, testInfo) => {
+            if (process.env.COVERAGE !== "1") {
+                await use();
+                return;
+            }
+
+            let started = false;
+            try {
+                await page.coverage.startJSCoverage({
+                    resetOnNavigation: false,
+                    reportAnonymousScripts: false,
+                });
+                started = true;
+            } catch (error) {
+                console.warn(
+                    `[coverage] could not start JS coverage for "${testInfo.title}": ${String(error)}`,
+                );
+            }
+
+            await use();
+
+            if (!started) return;
+
+            try {
+                const coverage = await page.coverage.stopJSCoverage();
+
+                const relativeSpec = path
+                    .relative(process.cwd(), testInfo.file)
+                    .replace(/\\/g, "/");
+                const specSlug = relativeSpec
+                    .replace(/^e2e\/tests\//, "")
+                    .replace(/\.spec\.[jt]sx?$/, "")
+                    .replace(/[\\/]+/g, "__");
+                const safeTitle = testInfo.title
+                    .replace(/[^a-zA-Z0-9._-]+/g, "-")
+                    .replace(/^-+|-+$/g, "")
+                    .slice(0, 80);
+                const rawRoot = path.resolve(
+                    process.env.COVERAGE_RAW_DIR || "coverage-raw",
+                );
+                const outputDir = path.join(rawRoot, specSlug);
+                fs.mkdirSync(outputDir, { recursive: true });
+                const outputFile = path.join(
+                    outputDir,
+                    `${testInfo.testId}-${safeTitle || "test"}.json`,
+                );
+                fs.writeFileSync(outputFile, JSON.stringify(coverage));
+            } catch (error) {
+                console.warn(
+                    `[coverage] could not save JS coverage for "${testInfo.title}": ${String(error)}`,
+                );
+            }
+        },
+        { auto: true },
+    ],
 });
 
 export { expect };

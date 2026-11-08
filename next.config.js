@@ -2,6 +2,9 @@ const withNextIntl = require("next-intl/plugin")("./i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Browser source maps are only emitted for the coverage experiment. The
+    // normal build (and therefore production behaviour) is unchanged.
+    productionBrowserSourceMaps: process.env.COVERAGE_SOURCEMAP === "1",
     serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
     webpack: (config) => {
         config.module.rules.push({

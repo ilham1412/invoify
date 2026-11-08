@@ -15,6 +15,10 @@ import { defineConfig, devices } from "@playwright/test";
  * gets from the container-query audit — and it made the TIA selection story
  * harder to reason about, since "one test" then meant two executions.
  */
+const jsonReporter = process.env.PLAYWRIGHT_JSON === "1"
+    ? (["json", { outputFile: process.env.PLAYWRIGHT_JSON_OUTPUT_NAME || "test-results/results.json" }] as const)
+    : null;
+
 export default defineConfig({
     testDir: "./e2e",
     // The suite is small; running it serially keeps the single dev server sane
@@ -22,20 +26,31 @@ export default defineConfig({
     workers: 1,
     fullyParallel: false,
     forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 1 : 0,
+    // Measurement runs need a deterministic no-retry mode. The default is the
+    // previous behaviour (retry once on CI, never locally).
+    retries: process.env.PLAYWRIGHT_RETRIES
+        ? Number(process.env.PLAYWRIGHT_RETRIES)
+        : process.env.CI
+          ? 1
+          : 0,
     /*
      * The HTML report is always written, alongside the console reporter, so
      * `npx playwright show-report` works after any run without having to
      * re-run with an explicit `--reporter=html`. `open: "never"` keeps it from
      * stealing focus on every run; CI keeps its GitHub annotations on top.
+     * The JSON reporter is opt-in because it is only needed by the coverage
+     * experiment's offline duration analysis.
      */
     reporter: [
         process.env.CI ? ["github"] : ["list"],
         ["html", { open: "never" }],
+        ...(jsonReporter ? [jsonReporter] : []),
     ],
 
     use: {
-        baseURL: "http://127.0.0.1:3000",
+        // The default is unchanged; the coverage experiment points Playwright
+        // at the production server it starts on another port.
+        baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3000",
         trace: "on-first-retry",
     },
 

@@ -49,6 +49,10 @@ yarn-error.log*
 # Local scratch
 /.scratch/
 
+# Coverage experiment artifacts (raw per-test V8 data and processed maps)
+/coverage-raw/
+/coverage-data/
+
 # Claude Code local state
 /.claude/settings.local.json
 

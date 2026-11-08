@@ -91,6 +91,7 @@
     "eslint": "9.18.0",
     "eslint-config-next": "15.3.8",
     "ignore-loader": "^0.1.2",
+    "monocart-coverage-reports": "3.2.1",
     "prettier": "3.4.2",
     "puppeteer": "^24.10.0"
   }
