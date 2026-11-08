@@ -1,0 +1,117 @@
+{
+  "description": "Maps source module paths (relative to repo root) to existing Playwright specs that cover them. Keep these paths aligned with e2e/tests.",
+  "mappings": [
+    {
+      "sourcePathPattern": "^app/components/templates/invoice-pdf/",
+      "relatedTests": [
+        "e2e/tests/07-pdf/pdf.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts",
+        "e2e/tests/06-pratinjau/pratinjau.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^app/components/invoice/form/TemplateGallery\\.tsx$",
+      "relatedTests": [
+        "e2e/tests/02-detail-invoice/detail-invoice.spec.ts",
+        "e2e/tests/06-pratinjau/pratinjau.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^services/invoice/|^app/api/invoice/",
+      "relatedTests": [
+        "e2e/tests/07-pdf/pdf.spec.ts",
+        "e2e/tests/10-email/email.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^lib/server/",
+      "relatedTests": [
+        "e2e/tests/01-pengirim-penerima/pengirim-penerima.spec.ts",
+        "e2e/tests/02-detail-invoice/detail-invoice.spec.ts",
+        "e2e/tests/03-item/item.spec.ts",
+        "e2e/tests/04-pembayaran/pembayaran.spec.ts",
+        "e2e/tests/05-ringkasan/ringkasan.spec.ts",
+        "e2e/tests/07-pdf/pdf.spec.ts",
+        "e2e/tests/09-ekspor-impor/ekspor-impor.spec.ts",
+        "e2e/tests/10-email/email.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^contexts/(InvoiceContext|WizardContext|TranslationContext)\\.tsx$|^lib/wizardSteps\\.ts$",
+      "relatedTests": [
+        "e2e/tests/00-navigasi-wizard/navigasi-wizard.spec.ts",
+        "e2e/tests/06-pratinjau/pratinjau.spec.ts",
+        "e2e/tests/07-pdf/pdf.spec.ts",
+        "e2e/tests/08-invoice-tersimpan/invoice-tersimpan.spec.ts",
+        "e2e/tests/09-ekspor-impor/ekspor-impor.spec.ts",
+        "e2e/tests/11-bahasa/bahasa.spec.ts",
+        "e2e/tests/12-penyimpanan/penyimpanan.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^app/components/invoice/form/sections/(BillFromSection|BillToSection)\\.tsx$|^app/components/reusables/form-fields/FormCustomInput\\.tsx$",
+      "relatedTests": [
+        "e2e/tests/01-pengirim-penerima/pengirim-penerima.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^app/components/invoice/form/wizard/WizardNavigation\\.tsx$",
+      "relatedTests": [
+        "e2e/tests/00-navigasi-wizard/navigasi-wizard.spec.ts",
+        "e2e/tests/01-pengirim-penerima/pengirim-penerima.spec.ts",
+        "e2e/tests/02-detail-invoice/detail-invoice.spec.ts",
+        "e2e/tests/03-item/item.spec.ts",
+        "e2e/tests/04-pembayaran/pembayaran.spec.ts",
+        "e2e/tests/05-ringkasan/ringkasan.spec.ts",
+        "e2e/tests/06-pratinjau/pratinjau.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^app/components/invoice/actions/(FinalPdf|PdfViewer|LivePreview|MobilePreviewSheet)\\.tsx$|^app/components/layout/(MobileActionBar|LandingContent)\\.tsx$",
+      "relatedTests": [
+        "e2e/tests/06-pratinjau/pratinjau.spec.ts",
+        "e2e/tests/07-pdf/pdf.spec.ts",
+        "e2e/tests/10-email/email.spec.ts",
+        "e2e/tests/13-beranda-seo/beranda-seo.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^app/components/modals/(email/SendPdfToEmailModal|invoice/InvoiceExportModal|invoice/InvoiceLoaderModal|invoice/components/SavedInvoicesList|signature/SignatureModal)\\.tsx$",
+      "relatedTests": [
+        "e2e/tests/08-invoice-tersimpan/invoice-tersimpan.spec.ts",
+        "e2e/tests/09-ekspor-impor/ekspor-impor.spec.ts",
+        "e2e/tests/10-email/email.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^app/components/reusables/LanguageSelector\\.tsx$|^i18n/|^messages/",
+      "relatedTests": [
+        "e2e/tests/11-bahasa/bahasa.spec.ts",
+        "e2e/tests/13-beranda-seo/beranda-seo.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^lib/(seo|fonts)\\.ts$|^app/(sitemap|robots|manifest)\\.ts$|^app/\\[locale\\]/(page|layout|opengraph-image)\\.tsx$|^app/components/layout/",
+      "relatedTests": [
+        "e2e/tests/11-bahasa/bahasa.spec.ts",
+        "e2e/tests/13-beranda-seo/beranda-seo.spec.ts"
+      ]
+    },
+    {
+      "sourcePathPattern": "^lib/(secureStore|partyStore|invoiceNumber)\\.ts$|^app/components/invoice/form/PartyPicker\\.tsx$",
+      "relatedTests": [
+        "e2e/tests/01-pengirim-penerima/pengirim-penerima.spec.ts",
+        "e2e/tests/08-invoice-tersimpan/invoice-tersimpan.spec.ts",
+        "e2e/tests/12-penyimpanan/penyimpanan.spec.ts",
+        "e2e/tests/14-alur-penuh/alur-penuh.spec.ts"
+      ]
+    }
+  ]
+}

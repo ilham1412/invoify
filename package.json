@@ -87,6 +87,7 @@
     "@types/react-signature-canvas": "^1.0.4",
     "@types/xml2js": "^0.4.13",
     "cross-env": "^7.0.3",
+    "dependency-cruiser": "^18.5.0",
     "eslint": "9.18.0",
     "eslint-config-next": "15.3.8",
     "ignore-loader": "^0.1.2",

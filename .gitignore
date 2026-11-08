@@ -51,3 +51,5 @@ yarn-error.log*
 
 # Claude Code local state
 /.claude/settings.local.json
+
+/dep-graph.json
